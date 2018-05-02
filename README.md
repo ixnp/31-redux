@@ -1,4 +1,4 @@
-401 JS --  Lab 31 Budget Tracker
+# ![CF](http://i.imgur.com/7v5ASc8.png) 31 Budget Tracker
 ===
 
 ## Submission Instructions
