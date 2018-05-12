@@ -2,26 +2,45 @@ import {
   CATEGORY_CREATE,
   CATEGORY_UPDATE,
   CATEGORY_DESTORY
-} from '../actions/category-actions';
+} from '../actions/category-actions.js';
 
-const initialState = [];
+const initialState = {
+    categories: []
+  }
 
-export default (state=initialState, action) => {
-  let {type, payload} = action;
+export default function categoryReducer (state, action) {
+  if (state === undefined) {
+    return initialState
+  }
 
-  switch(type) {
+  let newState = {};
+  let newCats = [];
+
+  switch(action.type) {
     case 'CATEGORY_CREATE' :
-      return [...state, payload]
+      console.log('21 action', action);
+      return Object.assign(newState, {
+        categories: [...state.categories, action.category]
+      });
+
     case 'CATEGORY_UPDATE' :
-      return state.map(category => {
-        category.id === payload.id ? payload : category
+      let updateCategories = state.categories.map(cat => {
+        if(cat.id === action.categories.id){
+          return action.category;
+        } else {
+          return cat;
+        }
       });
     case 'CATEGORY_DESTORY' :
-    return state.filter( category => category.id !== payload.id);
+   
+      newCats = state.categories.filter(cat => cat.id !== action.category.id);
 
-    case 'CATEGORY_RESET' :
-      return initialState; 
-    default:
-      return state;
+      return Object.assign(newState, {
+        categories: newCats
+      })
+
+      default:
+        return state; 
   }
 }
+
