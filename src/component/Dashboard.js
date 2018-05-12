@@ -1,37 +1,45 @@
 'use strict';
 import React from 'react';
 import {connect} from 'react-redux';
-import {increase, decrease} from '../action/category-actions.js';
+import {categoryCreate, categoryUpdate, categoryDestroy } from '../action/category-actions.js';
+import CategoryForm from '../category-from.js'
+
+//componentDidMount gets fired if the item gets rendered
 
 class Dashboard extends React.Component{
-  render(){
-    return <div>
-      Data: {this.props.data}
-      <button onClick={() => this.props.increase(this.state.in)}>
-          increment by
-        </button>
-        <input onChange={this.handleChange}
-               name="in" type="number"
-               value={this.state.in} />
-  
-        <button onClick={() => this.props.decrease(this.state.de)}>
-          decrement by
-        </button>
-        <input onChange={this.handleChange}
-               name="de" type="number"
-               value={this.state.de} />
+ componentDidMount() {
+   this.props.categoryCreate({ title: 'test category'});
+   this.props.categoryCreate({title: 'bleh'});
+ }
+ render() {
+   return (
+     <main className='dashboard-container'>
+      <h2>Dashboard</h2>
 
-    </div>
+      <CategoryForm
+        buttonText='create a category'
+        onComplete={this.props.categoryCreate} />
+      
+      {this.props.categories.map(item =>
+      <div key={item.id}>
+      <h3>{item.title}</h3>
+      </div>
+      )}
+      </main>
+   )
+ }
+}
+
+const mapStateToProps = (state) =>{
+return {
+  categories:state
   }
 }
 
-const mapStateToProps = sate => ({
-  data: state.data,
-})
-
-const mapDispatchToProps = (dispatch, getState) => ({
-  increase: category => dispatch(increase()),
-  decrease: category => dispatch(decrease()),
-})
+const mapDispatchToProps = (dispatch, getState) => {return {
+  categoryCreate: (category) => dispatch(categoryCreate(category)),
+  categoryUpdate: (category) => dispatch(categoryUdate(category)),
+  categoryDestroy: (category) => dispatch(categoryDestroy(category))
+}}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
