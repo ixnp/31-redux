@@ -2,6 +2,8 @@
 import React from 'react';
 import CategoryForm from './category-form.js';
 import CategoryList from './category-list.js';
+import ExpensesList from './expense-list.js';
+
 class Dashboard extends React.Component {
  
   constructor(props) {
@@ -13,11 +15,12 @@ class Dashboard extends React.Component {
   
   render() {
     
-    return <div>
+    return <React.Fragment>
     <CategoryForm></CategoryForm>
     <CategoryList></CategoryList>
+    <ExpensesList></ExpensesList>
     
-    </div>
+    </React.Fragment>
   }
 }
 
