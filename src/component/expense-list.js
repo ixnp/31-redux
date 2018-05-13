@@ -15,14 +15,19 @@ export default class ExpensesList extends React.Component {
         new Date(),
         
       ]
-    };
-    console.log('9 hi')
+    }
+    this.addTimestamp = this.addTimestamp.bind(this);
   }
 
+  addTimestamp() {
+    let state = {timestampsTest: [...this.state.timestampsTest, Date.now()]}
+    this.setState(state);
+  }
   
   render() { 
     return <React.Fragment>
       <h1>Timestamps</h1>
+      <button onClick={this.addTimestamp}>Add Expense</button>
       {this.state.timestampsTest.map(timestamp => {
      return <div>{timestamp.toString()}</div>
       })}
