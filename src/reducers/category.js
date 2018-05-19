@@ -24,6 +24,7 @@ export default function categoryReducer (state, action) {
       });
 
     case 'CATEGORY_UPDATE' :
+      console.log('27 reducer action', action);
       let updateCategories = state.categories.map(cat => {
         if(cat.id === action.categories.id){
           return action.category;

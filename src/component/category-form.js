@@ -3,7 +3,10 @@
 import React from 'react';
 import uuidv4 from 'uuid/v4';
 import {connect} from 'react-redux';
-import {categoryCreate} from '../actions/category-actions.js';
+import {
+  categoryCreate,
+  categoryUpdate
+} from '../actions/category-actions.js';
 
 class CategoryForm extends React.Component {
   constructor(props){
@@ -13,6 +16,7 @@ class CategoryForm extends React.Component {
       budget: 0,
       id: uuidv4(),
       timestamp: null,
+      isUpdating: false
 
     }
     this.handleChange = this.handleChange.bind(this);
@@ -21,13 +25,18 @@ class CategoryForm extends React.Component {
 
   handleChange(e) {
     this.setState({
-      [e.target.name] : e.target.value
+      [e.target.name] : e.target.value,
+      [e.target.budget] : e.target.value
     })
     console.log('24 this is the state',this.state)
   }
 
   handleSubmit(e) {
     e.preventDefault();
+    console.log('36 form submit', this.state);
+    if(this.props.isUpdating){
+      this.props.categoryUpdate(this.state);
+    }
     this.props.categoryCreate(this.state);
 
   }
@@ -49,7 +58,8 @@ class CategoryForm extends React.Component {
 
 const mapDispatchToProps = (dispatch, getState) => {
   return {
-    categoryCreate: val => dispatch(categoryCreate(val))
+    categoryCreate: val => dispatch(categoryCreate(val)),
+    
   }
 }
 

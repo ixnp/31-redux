@@ -8,12 +8,12 @@ export function categoryCreate(category) {
   return { type: CATEGORY_CREATE, category }
 }
 
-export function categoryUpdate(value) {
-  return {type: 'CATEGORY_UPDATE', category}
+export function categoryUpdate(category) {
+  return {type: CATEGORY_UPDATE, category}
 }
 
-export function categoryDestroy(value) {
-  return {type: 'CATEGORY_DESTORY', category}
+export function categoryDestroy(category) {
+  return {type: CATEGORY_DESTORY, category}
 }
 
 
